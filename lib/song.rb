@@ -1,12 +1,29 @@
+require 'pry' 
 class Song 
-  attr_accessor :name, :artist
-@@all = []
+  attr_accessor :name
+  attr_reader :artist
+  @@all = []
+
+# Song #artist= invokes Artist#add_song to add itself to the artist's collection of songs (artist has many songs)
+
 
   def initialize(name, artist = nil)
     @name = name
     @artist = artist
-    save
+    
+    
+    # if artist != nil 
+    #   artist.add_song(self)
+    #   self.artist = artist
+    # end
   end
+  
+  
+  def artist=(artist)
+    @artist = artist
+    artist.add_song(self)
+  end
+  
   
   def self.all
     @@all 
@@ -23,14 +40,8 @@ class Song
   def self.create(song)
     #initializes, saves, and returns the song
     song = self.new(song)
-    
-  
-  # describe ".create" do
-  #   it "initializes, saves, and returns the song" do
-  #     created_song = Song.create("Kaohsiung Christmas")
-
-  #     expect(Song.all).to include(created_song)
-  #   end
+    song.save
+    song
   end
   
 end
