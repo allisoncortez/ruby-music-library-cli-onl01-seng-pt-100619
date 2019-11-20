@@ -1,6 +1,7 @@
 require 'pry' 
 class Song 
-  attr_accessor :name, :artist, :genre
+  attr_accessor :name
+  attr_reader :artist, :genre
   @@all = []
 
 
@@ -16,9 +17,9 @@ class Song
     artist.add_song(self)
   end
   
-  def genre=(genre)
+   def genre=(genre)
     @genre = genre
-    genre.add_song(self)
+    genre.songs << self unless genre.songs.include?(self)
   end
   
   
