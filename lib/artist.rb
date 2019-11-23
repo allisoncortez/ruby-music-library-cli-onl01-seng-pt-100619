@@ -1,25 +1,26 @@
-class Artist 
+require 'pry'
+
+class Artist
   extend Concerns::Findable
-  attr_accessor :name
+  attr_accessor :name 
   attr_reader :songs
   @@all = []
   
   def initialize(name)
-    @name = name
+    @name = name 
     @songs = []
-    
   end
   
-  def self.all 
-    @@all 
-  end 
-  
-  def self.destroy_all 
-    @@all = []
+  def save
+    @@all << self
   end
   
-  def save 
-    @@all << self 
+  def self.all
+    @@all
+  end
+  
+  def self.destroy_all
+    @@all.clear
   end
   
   def self.create(artist)
@@ -28,10 +29,12 @@ class Artist
     artist
   end
   
-  def add_song(song) 
-    if song.artist == nil
-      song.artist = self 
-    end 
+  def songs
+    @songs
+  end
+  
+  def add_song(song)
+    song.artist = self unless song.artist
     songs << song unless songs.include?(song)
   end
   

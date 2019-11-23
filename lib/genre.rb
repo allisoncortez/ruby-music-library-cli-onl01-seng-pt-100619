@@ -7,36 +7,27 @@ class Genre
   def initialize(name)
     @name = name
     @songs = []
-    save
   end
   
-  def self.all 
-    @@all 
-  end 
-  
-  def self.destroy_all 
-    @@all = []
+  def save
+    @@all << self
   end
   
-  def save 
-    @@all << self 
+  def self.all
+    @@all
+  end
+  
+  def self.destroy_all
+    @@all.clear
   end
   
   def self.create(genre)
     genre = self.new(genre)
-    genre.save 
+    genre.save
     genre
   end
   
-  def add_song(song) 
-    if song.genre == nil
-      song.genre = self 
-    end 
-    songs << song unless songs.include?(song)
-  end
-  
   def artists
-    songs.collect(&:artist).uniq
+    @songs.map {|song| song.artist}.uniq
   end
-  
 end
