@@ -1,5 +1,7 @@
 #!/usr/bin/env ruby
 
+#shebang line: tells shell which interpreter to use 
+
 require_relative '../config/environment'
 
 MusicLibraryController.new.call
